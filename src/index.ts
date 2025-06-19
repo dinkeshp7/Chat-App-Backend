@@ -24,7 +24,7 @@ wss.on("connection",(ws)=>{
     let currentRoom : string ="";
 
     ws.on("message",(data)=>{
-        const msg = JSON.parse(data.toString());
+        const msg = JSON.parse(data.toString());  //JSON.parse converts string to json
         if(msg.type === "join-room"){
             currentRoom = msg.room;
             if(!rooms[currentRoom]) rooms[currentRoom] = new Set();
@@ -63,7 +63,7 @@ wss.on("connection",(ws)=>{
 const broadcast=(room:string,msg:any)=>{
     if(!rooms[room]) return;
     rooms[room].forEach(client=>{
-        client.send(JSON.stringify(msg)); //stringfy
+        client.send(JSON.stringify(msg)); //stringfy is used for converting JSON->string
     })
 }
 
